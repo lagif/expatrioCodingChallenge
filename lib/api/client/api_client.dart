@@ -15,35 +15,24 @@ abstract class ApiClient {
   Future<UserInfo> logIn(@Body() Map<String, dynamic> map);
 
   @GET("/portal/users/{userId}/profile")
-  @Headers({
-    "Content-Type": "application/json",
-    "Accept": "*/*",
-    "User-Agent": AppConfig.userAgent,
-  })
+  @Headers(AppConfig.standardHeaders)
   Future<User> getUser(
     @Path() String userId,
     @Header('Authorization') String bearerToken,
   );
 
   @GET("/v3/customers/{userId}/tax-data")
-  @Headers({
-    "Content-Type": "application/json",
-    "Accept": "*/*",
-    "User-Agent": AppConfig.userAgent,
-  })
+  @Headers(AppConfig.standardHeaders)
   Future<TaxInfo> getTaxData(
     @Path() String userId,
     @Header('Authorization') String bearerToken,
   );
 
   @PUT("/v3/customers/{userId}/tax-data")
-  @Headers({
-    "Content-Type": "application/json",
-    "Accept": "*/*",
-    "User-Agent": AppConfig.userAgent,
-  })
+  @Headers(AppConfig.standardHeaders)
   Future<TaxInfo> saveTaxData(
     @Path() String userId,
-    @Body() Map<String, dynamic> map,
+    @Header('Authorization') String bearerToken,
+    @Body() Map<String, dynamic> taxData,
   );
 }

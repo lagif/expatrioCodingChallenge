@@ -125,7 +125,8 @@ class _ApiClient implements ApiClient {
   @override
   Future<TaxInfo> saveTaxData(
     String userId,
-    Map<String, dynamic> map,
+    String bearerToken,
+    Map<String, dynamic> taxData,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -133,10 +134,11 @@ class _ApiClient implements ApiClient {
       r'Content-Type': 'application/json',
       r'Accept': '*/*',
       r'User-Agent': 'Expatrio Mobile',
+      r'Authorization': bearerToken,
     };
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    _data.addAll(map);
+    _data.addAll(taxData);
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<TaxInfo>(Options(
       method: 'PUT',
