@@ -1,5 +1,7 @@
 import 'package:coding_challenge/api/client/api_client.dart';
 import 'package:coding_challenge/api/services/user_manager.dart';
+import 'package:coding_challenge/auth/cubits/auth_cubit.dart';
+import 'package:coding_challenge/auth/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -22,4 +24,17 @@ Future<void> setupContainer() async {
       container.get<FlutterSecureStorage>(),
     );
   });
+
+  container.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      apiClient: container.get<ApiClient>(),
+    ),
+  );
+
+  container.registerFactory<AuthCubit>(
+    () => AuthCubit(
+      authRepository: container.get<AuthRepository>(),
+      userManager: container.get<UserManager>(),
+    ),
+  );
 }

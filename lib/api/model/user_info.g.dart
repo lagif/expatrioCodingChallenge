@@ -7,18 +7,27 @@ part of 'user_info.dart';
 // **************************************************************************
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
-      name: json['subject.fullName'] as String,
+      subject: UserSubject.fromJson(json['subject'] as Map<String, dynamic>),
       accessToken: json['accessToken'] as String,
       id: json['userId'] as int,
       accessTokenExpiresAt:
           DateTime.parse(json['accessTokenExpiresAt'] as String),
-      email: json['subject.email'] as String,
     );
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'accessToken': instance.accessToken,
-      'subject.email': instance.email,
-      'subject.fullName': instance.name,
+      'subject': instance.subject.toJson(),
       'accessTokenExpiresAt': instance.accessTokenExpiresAt.toIso8601String(),
       'userId': instance.id,
+    };
+
+UserSubject _$UserSubjectFromJson(Map<String, dynamic> json) => UserSubject(
+      name: json['fullName'] as String,
+      email: json['email'] as String,
+    );
+
+Map<String, dynamic> _$UserSubjectToJson(UserSubject instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+      'fullName': instance.name,
     };

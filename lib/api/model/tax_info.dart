@@ -19,7 +19,7 @@ part 'tax_info.g.dart';
 
 @JsonSerializable(explicitToJson: true, includeIfNull: true)
 class TaxInfo {
-  bool usPerson;
+  bool? usPerson;
   String? usTaxId;
   TaxResidence? primaryTaxResidence;
   List<TaxResidence> secondaryTaxResidence;

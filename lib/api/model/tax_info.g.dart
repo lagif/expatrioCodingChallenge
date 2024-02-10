@@ -7,7 +7,7 @@ part of 'tax_info.dart';
 // **************************************************************************
 
 TaxInfo _$TaxInfoFromJson(Map<String, dynamic> json) => TaxInfo(
-      usPerson: json['usPerson'] as bool,
+      usPerson: json['usPerson'] as bool?,
       usTaxId: json['usTaxId'] as String?,
       primaryTaxResidence: json['primaryTaxResidence'] == null
           ? null

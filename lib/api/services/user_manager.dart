@@ -32,7 +32,7 @@ class UserManager with ChangeNotifier {
   Future<void> setLoggedInUser(UserInfo user) async {
     await _secureStorage.write(
       key: _keyLoggedUser,
-      value: user.email,
+      value: user.subject.email,
     );
 
     final oldLoggedInUser = _loggedInUser;

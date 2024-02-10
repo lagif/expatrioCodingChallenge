@@ -1,5 +1,11 @@
+import 'package:coding_challenge/auth/widgets/auth_screen.dart';
+import 'package:coding_challenge/auth/widgets/auth_wrapper.dart';
 import 'package:coding_challenge/service_locator/container.dart';
+import 'package:coding_challenge/tax_info/widgets/tax_info_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'auth/cubits/auth_cubit.dart';
 
 void main() async {
   await setupContainer();
@@ -12,33 +18,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-        canvasColor: Colors.transparent,
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Color.fromRGBO(65, 171, 158, 1),
-          selectionColor: Color.fromRGBO(65, 171, 158, 1),
-          selectionHandleColor: Color.fromRGBO(65, 171, 158, 1),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: createMaterialColor(Colors.white))
-            .copyWith(
-          secondary: createMaterialColor(const Color.fromRGBO(65, 171, 158, 1)),
-        ),
-        primaryColorDark: Colors.white,
-      ),
-      home: Scaffold(
-        body: SafeArea(
-          child: Container(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => container.get<AuthCubit>()..load()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: themeData(),
+        routes: <String, WidgetBuilder>{
+          'TaxInfoScreen': (_) => const UserTaxInfoScreen(),
+          'LoginScreen': (_) => const LoginScreen()
+        },
+        home: Scaffold(
+          body: Container(
             color: Colors.white,
+            child: AuthWrapperWidget(child: const UserTaxInfoScreen()),
           ),
         ),
       ),
@@ -64,4 +58,49 @@ MaterialColor createMaterialColor(Color color) {
     );
   }
   return MaterialColor(color.value, swatch);
+}
+
+ThemeData themeData() {
+  return ThemeData(
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      },
+    ),
+    canvasColor: Colors.transparent,
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: Color.fromRGBO(65, 171, 158, 1),
+      selectionColor: Color.fromRGBO(65, 171, 158, 1),
+      selectionHandleColor: Color.fromRGBO(65, 171, 158, 1),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(color: Colors.black, width: 0.5),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+      ),
+    ),
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    colorScheme:
+        ColorScheme.fromSwatch(primarySwatch: createMaterialColor(Colors.white))
+            .copyWith(
+      secondary: createMaterialColor(const Color.fromRGBO(65, 171, 158, 1)),
+    ),
+    primaryColorDark: Colors.white,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(const Size(double.infinity, 45)),
+        backgroundColor:
+            MaterialStateColor.resolveWith((_) => const Color(0xFF41AB9E)),
+      ),
+    ),
+  );
 }
