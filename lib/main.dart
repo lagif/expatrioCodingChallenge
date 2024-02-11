@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           body: Container(
             color: Colors.white,
-            child: AuthWrapperWidget(child: const UserTaxInfoScreen()),
+            child: const AuthWrapperWidget(child: UserTaxInfoScreen()),
           ),
         ),
       ),

@@ -21,6 +21,12 @@ class AuthRepositoryImpl implements AuthRepository {
       });
     } catch (e) {
       if (e is DioException) {
+        if (e.response?.statusCode == 401 || e.response?.statusCode == 400) {
+          throw (HttpErrorException(
+              errorCode: e.response?.statusCode ?? 401,
+              errorMessage:
+                  "Your credentials seem to be wrong. Try again later!"));
+        }
         if ({
           DioExceptionType.connectionError,
           DioExceptionType.sendTimeout,
@@ -32,7 +38,9 @@ class AuthRepositoryImpl implements AuthRepository {
             errorCode: e.response?.statusCode ?? 400,
             errorMessage: e.message ?? "Something's wrong, go again"));
       } else {
-        rethrow;
+        throw HttpErrorException(
+            errorCode: 500,
+            errorMessage: "Unknown error just happened. Please try again!");
       }
     }
   }
