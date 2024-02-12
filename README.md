@@ -1,20 +1,32 @@
 # coding_challenge
 This is the expatrio home assignment for the mobile post
 
+## setting up and running the project
+- to get all the dependencies for the project run:
+  ```
+  flutter pub get
+  ```
+- all the auto-generative code pieces were already generated,
+  but if for some reason you want to regenerate them
+  (in case you've cnahged something in the serializable-annotated classes):
+  ```
+  dart run build_runner build 
+  ```
+
 ## credentials for access 
 - email : tito+bs792@expatrio.com
 - password : nemampojma
 
-## Getting Started
-A postman collection is available along with a video showing the flow and an apk in case you want to test it yourself
-Credentials are already setup in postman and all you have to do is click send on the auth api 
-token will be copied directly to collection variables and you can play around with the other apis
-![image](https://github.com/gogetsu4024/expatrioCodingChallenge/assets/42039041/6fa5fb12-e706-4696-8cd4-69884021ed6d)
+## things I definitely would change, given more time:
+- would pay more attention to methods length, extracting logically seprated pieces
+- the design should be more shaped and have some rules and semantic values for colors, styles, etc...
+- the authorization right now is not the best,
+ given that its access token is short-lived and we have no refresh token.
+I would otherwise also store it and also use local authorization
+- would bring in more tests
+- would pay attention to different screen sizes
+- would use less hardcoded values and put some settings to app settings
+- would keep the code more DRY and YAGNI
 
-link is here -> [click ](https://drive.google.com/drive/folders/1MuyOdR152tvVVctcRwouRiXZAbG9XM5K)    :shipit:
+It was nice to try manage this in a small periods of time (I work on other projects now and don't have much time left apart from family and work)
 
-![image](https://github.com/gogetsu4024/expatrioCodingChallenge/assets/42039041/c2d568e3-4068-4099-8e86-ed5a84992cc3)
-
-
-####  GOOD LUCK
-:blush:
