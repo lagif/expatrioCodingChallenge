@@ -7,6 +7,12 @@ import 'package:coding_challenge/api/services/user_manager.dart';
 import 'package:coding_challenge/tax_info/cubits/tax_info_state.dart';
 import 'package:coding_challenge/tax_info/repository/tax_info_repository.dart';
 
+///
+/// getting user's tax info and setting modified data
+/// also, this cubit is located in global Build context
+/// and therefore may use global UserManager to save an remove
+/// the user's tax data from secure storage
+///
 class TaxInfoCubit extends Cubit<TaxInfoState> {
   final TaxInfoRepository taxInfoRepository;
   final UserManager userManager;
@@ -14,6 +20,10 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
   TaxInfoCubit({required this.taxInfoRepository, required this.userManager})
       : super(TaxInfoInitial());
 
+  ///
+  /// load information first from secure storage,
+  /// then, if empty, from the API
+  ///
   Future<void> load() async {
     final loggedUser = userManager.getLoggedInUser();
 
@@ -41,6 +51,10 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
     }
   }
 
+  ///
+  /// save tax data on the backend and then
+  /// in the secure storage
+  ///
   Future<void> setTaxInfo(TaxInfo taxInfo) async {
     final loggedUser = userManager.getLoggedInUser();
 
@@ -69,6 +83,7 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
     return e is HttpErrorException && e.errorCode == 400 || e.errorCode == 401;
   }
 
+  /// Notice: errors should be unified more carefully
   _handleError(e) {
     emit(TaxInfoError(e));
     if (_isUnauthorizedError(e)) {

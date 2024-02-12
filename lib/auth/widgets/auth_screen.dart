@@ -104,6 +104,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  ///
+  /// throughout the app, the FormBuilder was used
+  /// It simplifies validation and saving information from the form
+  ///
   Widget _loginForm(BuildContext context, AuthState state,
       {bool enabled = true}) {
     String login = '';

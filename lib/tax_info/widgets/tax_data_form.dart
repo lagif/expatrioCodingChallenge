@@ -18,6 +18,10 @@ class TaxInfoForm extends StatefulWidget {
   State<TaxInfoForm> createState() => _TaxInfoFormState();
 }
 
+/// as well as the authorization form
+/// this form also depends on the global tax data state
+/// so I have put it to the stateful widget
+///
 class _TaxInfoFormState extends State<TaxInfoForm> {
   @override
   Widget build(BuildContext context) {
@@ -74,8 +78,16 @@ class _TaxInfoSheetState extends State<_TaxInfoSheet> {
     super.initState();
   }
 
+  ///
+  /// some elements here, for example validators,
+  /// can be extracted from this long piece of code
+  ///
   @override
   Widget build(BuildContext context) {
+    /// I know dropdown search looks much cooler,
+    /// but I had a very limited time,
+    /// so I used the standard dropdown for this FormBuilder
+    ///
     List<ItemDropDown> countries = CountriesConstants.nationality
         .map((e) => ItemDropDown(e["code"], e["label"], e["label"]))
         .toList()

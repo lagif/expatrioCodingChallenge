@@ -8,6 +8,13 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+///
+/// GetIt service locator is great for the dependency injections
+/// and registering global scope singletons.
+/// The user manager and other services and blocs
+/// are global and depend on globals
+/// so they can be registered here to reuse
+///
 final GetIt container = GetIt.instance;
 
 Future<void> setupContainer() async {
