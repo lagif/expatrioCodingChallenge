@@ -1,4 +1,5 @@
 import 'package:coding_challenge/shared/widgets/bottom_sheet.dart';
+import 'package:coding_challenge/tax_info/widgets/tax_data_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -84,7 +85,7 @@ class _UserTaxInfoScreenState extends State<UserTaxInfoScreen> {
   _openTaxDataForm(BuildContext context) {
     AppBottomSheet.show(
       context: context,
-      child: const SizedBox(height: 100),
+      child: const TaxInfoForm(),
     );
   }
 }

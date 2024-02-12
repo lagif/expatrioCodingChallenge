@@ -12,12 +12,12 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
   final UserManager userManager;
 
   TaxInfoCubit({required this.taxInfoRepository, required this.userManager})
-      : super(TaxInfoPending());
+      : super(TaxInfoInitial());
 
   Future<void> load() async {
     final loggedUser = userManager.getLoggedInUser();
 
-    if (loggedUser != null) {
+    if (loggedUser == null) {
       emit(TaxInfoError(HttpErrorException(
           errorCode: 401, errorMessage: "Unauthorized error")));
       return;
@@ -32,7 +32,7 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
       }
 
       final userTaxInfo = await taxInfoRepository.getTaxInfo(
-        "${loggedUser!.id}",
+        "${loggedUser.id}",
         loggedUser.accessToken,
       );
       emit(TaxInfoSuccess(userTaxInfo));
@@ -41,10 +41,10 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
     }
   }
 
-  Future<void> setTaxUnfo(TaxInfo taxInfo) async {
+  Future<void> setTaxInfo(TaxInfo taxInfo) async {
     final loggedUser = userManager.getLoggedInUser();
 
-    if (loggedUser != null) {
+    if (loggedUser == null) {
       emit(TaxInfoError(HttpErrorException(
           errorCode: 401, errorMessage: "Unauthorized error")));
       return;
@@ -55,7 +55,7 @@ class TaxInfoCubit extends Cubit<TaxInfoState> {
     try {
       await userManager.setUserTaxInfo(taxInfo);
       await taxInfoRepository.setTaxInfo(
-        "${loggedUser!.id}",
+        "${loggedUser.id}",
         taxInfo,
         loggedUser.accessToken,
       );

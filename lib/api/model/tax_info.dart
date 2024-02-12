@@ -1,18 +1,3 @@
-/*
-   "usPerson": false,
-    "usTaxId": null,
-    "primaryTaxResidence": {
-        "country": "AF",
-        "id": "1234"
-    },
-    "secondaryTaxResidence": [
-        {
-            "country": "FR",
-            "id": "123"
-        }
-    ],
- */
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tax_info.g.dart';

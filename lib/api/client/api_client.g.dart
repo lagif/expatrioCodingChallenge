@@ -123,7 +123,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<TaxInfo> saveTaxData(
+  Future<void> saveTaxData(
     String userId,
     String bearerToken,
     Map<String, dynamic> taxData,
@@ -139,26 +139,23 @@ class _ApiClient implements ApiClient {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(taxData);
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<TaxInfo>(Options(
+    await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
       contentType: 'application/json',
     )
-            .compose(
-              _dio.options,
-              '/v3/customers/${userId}/tax-data',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = TaxInfo.fromJson(_result.data!);
-    return value;
+        .compose(
+          _dio.options,
+          '/v3/customers/${userId}/tax-data',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

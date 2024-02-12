@@ -2,8 +2,6 @@ import 'package:coding_challenge/api/model/tax_info.dart';
 
 sealed class TaxInfoState {}
 
-class TaxInfoPending implements TaxInfoState {}
-
 class TaxInfoLoading implements TaxInfoState {}
 
 class TaxInfoInitial implements TaxInfoState {}

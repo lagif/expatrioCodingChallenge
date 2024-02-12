@@ -5,6 +5,8 @@ class IconTitle extends StatelessWidget {
   final String title;
   final MainAxisAlignment alignment;
   final Color color;
+  final double fontSize;
+  final double iconSize;
 
   const IconTitle({
     super.key,
@@ -12,6 +14,8 @@ class IconTitle extends StatelessWidget {
     required this.title,
     this.alignment = MainAxisAlignment.start,
     this.color = Colors.black87,
+    this.iconSize = 24,
+    this.fontSize = 18,
   });
 
   @override
@@ -24,19 +28,21 @@ class IconTitle extends StatelessWidget {
         children: [
           Icon(
             icon,
-            size: 24,
+            size: iconSize,
             color: color,
           ),
           const SizedBox(
             width: 12,
           ),
-          Text(
-            title,
-            style: TextStyle(
-              color: color,
-              fontSize: 18,
+          Flexible(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: color,
+                fontSize: fontSize,
+              ),
+              maxLines: 2,
             ),
-            maxLines: 2,
           )
         ],
       ),
