@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IconTitle extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final String title;
   final MainAxisAlignment alignment;
   final Color color;
@@ -10,7 +10,7 @@ class IconTitle extends StatelessWidget {
 
   const IconTitle({
     super.key,
-    required this.icon,
+    this.icon,
     required this.title,
     this.alignment = MainAxisAlignment.start,
     this.color = Colors.black87,
@@ -26,14 +26,16 @@ class IconTitle extends StatelessWidget {
         mainAxisAlignment: alignment,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            size: iconSize,
-            color: color,
-          ),
-          const SizedBox(
-            width: 12,
-          ),
+          if (icon != null) ...{
+            Icon(
+              icon,
+              size: iconSize,
+              color: color,
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+          },
           Flexible(
             child: Text(
               title,

@@ -1,5 +1,4 @@
 import 'package:coding_challenge/auth/widgets/auth_screen.dart';
-import 'package:coding_challenge/auth/widgets/auth_wrapper.dart';
 import 'package:coding_challenge/service_locator/container.dart';
 import 'package:coding_challenge/tax_info/cubits/tax_info_cubit.dart';
 import 'package:coding_challenge/tax_info/widgets/tax_info_screen.dart';
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           body: Container(
             color: Colors.white,
-            child: const AuthWrapperWidget(child: UserTaxInfoScreen()),
+            child: const LoginScreen(),
           ),
         ),
       ),

@@ -114,7 +114,7 @@ class _TaxInfoSheetState extends State<_TaxInfoSheet> {
                 IconTitle(
                     icon: Icons.location_on_outlined,
                     iconSize: 20,
-                    fontSize: 14,
+                    fontSize: 12,
                     title: i == 0
                         ? "WHICH COUNTRY SERVES AS YOUR PRIMARY TAX RESIDENCE?*"
                         : "DO YOU HAVE OTHER TAX RESIDENCE?*"),
@@ -156,10 +156,8 @@ class _TaxInfoSheetState extends State<_TaxInfoSheet> {
                 ),
                 const SizedBox(height: 8.0),
                 const IconTitle(
-                  icon: Icons.numbers,
                   title: "TAX IDENTIFICATION NUMBER*",
-                  iconSize: 20,
-                  fontSize: 14,
+                  fontSize: 12,
                 ),
                 FormBuilderTextField(
                     name: 'number_$i',
@@ -194,7 +192,6 @@ class _TaxInfoSheetState extends State<_TaxInfoSheet> {
                   ),
                 const SizedBox(height: 16.0),
               },
-              const SizedBox(height: 16.0),
               Row(
                 children: [
                   TextButton(
