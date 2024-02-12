@@ -1,6 +1,7 @@
 import 'package:coding_challenge/auth/widgets/auth_screen.dart';
 import 'package:coding_challenge/auth/widgets/auth_wrapper.dart';
 import 'package:coding_challenge/service_locator/container.dart';
+import 'package:coding_challenge/tax_info/cubits/tax_info_cubit.dart';
 import 'package:coding_challenge/tax_info/widgets/tax_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'auth/cubits/auth_cubit.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await setupContainer();
   runApp(const MyApp());
 }
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => container.get<AuthCubit>()..load()),
+        BlocProvider(create: (context) => container.get<TaxInfoCubit>()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -75,17 +78,21 @@ ThemeData themeData() {
       selectionHandleColor: Color.fromRGBO(65, 171, 158, 1),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      suffixIconColor: const Color.fromRGBO(65, 171, 158, 1),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
-      ),
-      focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
         borderSide: const BorderSide(color: Colors.black, width: 0.5),
       ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(
+          color: Color.fromRGBO(65, 171, 158, 1),
+          width: 0.5,
+        ),
+      ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+        borderSide: const BorderSide(color: Colors.black, width: 0.5),
       ),
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               AuthSuccess() => _loginForm(
                                   context,
                                   state,
-                                  enabled: false,
+                                  enabled: true,
                                 ),
                             }),
                   ],
@@ -190,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
           action: ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              Navigator.of(context).pushNamed("TaxInfoScreen");
             },
             child: const Text('GOT IT'),
           ),
@@ -205,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (error is HttpErrorException) {
       errorMessage = error.toString();
     }
-    if (error == ServerNotRespondingException) {
+    if (error is ServerNotRespondingException) {
       errorMessage = "No response from server. "
           "Please check your connection and try again!";
     }

@@ -25,14 +25,14 @@ class AuthRepositoryImpl implements AuthRepository {
           throw (HttpErrorException(
               errorCode: e.response?.statusCode ?? 401,
               errorMessage:
-                  "Your credentials seem to be wrong. Try again later!"));
+                  "Your credentials seem to be wrong. Give it another try!"));
         }
         if ({
           DioExceptionType.connectionError,
           DioExceptionType.sendTimeout,
           DioExceptionType.connectionTimeout,
         }.contains(e.type)) {
-          throw ServerNotRespondingException;
+          throw ServerNotRespondingException();
         }
         throw (HttpErrorException(
             errorCode: e.response?.statusCode ?? 400,
