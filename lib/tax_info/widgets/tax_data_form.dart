@@ -120,9 +120,19 @@ class _TaxInfoSheetState extends State<_TaxInfoSheet> {
                         : "DO YOU HAVE OTHER TAX RESIDENCE?*"),
                 FormBuilderDropdown<ItemDropDown>(
                   name: 'country_$i',
+
+                  ///items of the countries list, mapped to dropdown items,
+                  ///whith disabling the countries that are already used
                   items: countries
-                      .map((e) => DropdownMenuItem<ItemDropDown>(
-                          value: e, child: Text(e.value)))
+                      .map(
+                        (e) => DropdownMenuItem<ItemDropDown>(
+                          value: e,
+                          enabled: !residences
+                              .map((residence) => residence.country)
+                              .contains(e.key),
+                          child: Text(e.value),
+                        ),
+                      )
                       .toList(),
                   initialValue: countries.firstWhere(
                       (element) => element.key == residency.country,
